@@ -34,6 +34,10 @@
     <link rel="stylesheet" href="<?= base_url('asset') ?>/plugins/toastr/toastr.min.css">
     <!-- SweetAlert2 -->
     <link rel="stylesheet" href="<?= base_url('asset') ?>/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+    <!-- Select2 -->
+    <!-- <link rel="stylesheet" href="<?= base_url('asset') ?>/plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="<?= base_url('asset') ?>/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css"> -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -118,6 +122,9 @@
 
     <!-- SweetAlert2 -->
     <script src="<?= base_url('asset') ?>/plugins/sweetalert2/sweetalert2.min.js"></script>
+    <!-- Select2 -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <!-- <script src="<?= base_url('asset') ?>/plugins/select2/js/select2.full.min.js"></script> -->
     <?php $this->renderSection('script') ?>
 
     <script>

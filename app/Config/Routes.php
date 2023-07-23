@@ -44,12 +44,18 @@ $routes->group('admin', ['filter' => 'auth'], function ($routes) {
 // Pasar
 $routes->group('pasar', ['filter' => 'auth'], function ($routes) {
     $routes->get('/', 'PasarController::index');
+    $routes->post('store', 'PasarController::store');
+    $routes->post('update/(:any)', 'PasarController::update/$1');
+    $routes->post('delete/(:any)', 'PasarController::delete/$1');
     // $routes->get('pedagang/(:any)', 'PasarController::pedagang/$1');
+    $routes->get('get-data-pasar', 'PasarController::getDataPasar');
 });
 // Pedagang
 $routes->group('pedagang', ['filter' => 'auth'], function ($routes) {
     $routes->get('/', 'PedagangController::index');
+    $routes->post('store', 'PedagangController::store');
     $routes->get('pasar/(:any)', 'PedagangController::pasar/$1');
+    $routes->post('delete/(:any)', 'PedagangController::delete/$1');
 });
 
 

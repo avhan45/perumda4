@@ -58,13 +58,50 @@
                                                         Aksi
                                                     </button>
                                                     <div class="dropdown-menu">
-                                                        <a class="dropdown-item" href="#">Edit</a>
-                                                        <a class="dropdown-item" href="#">Delete</a>
+                                                        <!-- <a class="dropdown-item" href="#">Edit</a> -->
+                                                        <button class="dropdown-item" data-toggle="modal" data-target="#editModal<?= $p['no_pasar'] ?>">Edit</button>
+                                                        <form action="pasar/delete/<?= $p['no_pasar'] ?>" method="post">
+                                                            <button class="dropdown-item" type="submit">Delete</button>
+                                                            <!-- <a class="dropdown-item" href="#">Delete</a> -->
+                                                        </form>
                                                     </div>
                                                 </div>
                                             </td>
                                         </tr>
-
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="editModal<?= $p['no_pasar'] ?>" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <form action="/pasar/update/<?= $p['no_pasar'] ?>" method="post" method="post">
+                                                        <?= csrf_field() ?>
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="editModalLabel">Edit Data Pasar</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="form-group">
+                                                                <label for="no_pasar">No Pasar</label>
+                                                                <input type="text" class="form-control" id="no_pasar" name="no_pasar" value="<?= $p['no_pasar'] ?>" readonly>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="nama_pasar">Nama Pasar</label>
+                                                                <input type="text" class="form-control" id="nama_pasar" name="nama_pasar" value="<?= $p['nama_pasar'] ?>">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="alamat_pasar">Alamat Pasar</label>
+                                                                <input type="text" class="form-control" id="alamat_pasar" name="alamat_pasar" value="<?= $p['alamat_pasar'] ?>">
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn btn-primary">Update</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
 
                                     <?php endforeach ?>
                                 </tbody>
@@ -89,20 +126,22 @@
                     </button>
                 </div>
                 <form action="pasar/store/" method="post">
+                    <?= csrf_field() ?>
+
                     <div class="modal-body">
                         <!-- Isi form tambah data pasar di sini -->
                         <!-- Contoh: -->
                         <div class="form-group">
                             <label for="nomor_pasar">Nomor Pasar</label>
-                            <input type="text" class="form-control" id="nomor_pasar">
+                            <input type="text" class="form-control" id="nomor_pasar" name="no_pasar">
                         </div>
                         <div class="form-group">
                             <label for="nama_pasar">Nama Pasar</label>
-                            <input type="text" class="form-control" id="nama_pasar">
+                            <input type="text" class="form-control" id="nama_pasar" name="nama_pasar">
                         </div>
                         <div class="form-group">
                             <label for="alamat_pasar">Alamat Pasar</label>
-                            <input type="text" class="form-control" id="alamat_pasar">
+                            <input type="text" class="form-control" id="alamat_pasar" name="alamat_pasar">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -117,7 +156,21 @@
 
 <?= $this->endSection() ?>
 <?= $this->section('script') ?>
-<?php if (session()->getFlashdata('error')) : ?>
+<?php if (session()->getFlashdata('success')) : ?>
+    <script>
+        var errorToast = '<?= session()->getFlashdata("success") ?>';
+        var Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000
+        });
+        Toast.fire({
+            icon: 'success',
+            title: errorToast
+        });
+    </script>
+<?php elseif ((session()->getFlashdata('error'))) : ?>
     <script>
         var errorToast = '<?= session()->getFlashdata("error") ?>';
         var Toast = Swal.mixin({

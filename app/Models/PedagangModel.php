@@ -21,6 +21,15 @@ class PedagangModel extends Model
             ->getResultArray();
     }
 
+    public function getDataPedagang($nama, $no_pasar)
+    {
+        return $this->db->table('Pedagang')
+            ->where('nama_pedagang', $nama)
+            ->where('no_pasar', $no_pasar)
+            ->get()
+            ->getResultArray();
+    }
+
     public function getPedagang()
     {
         return $this->db->table('Pedagang')
