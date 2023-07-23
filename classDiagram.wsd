@@ -1,0 +1,51 @@
+@startuml
+
+skin rose
+
+title - Class Diagram Perumda
+
+Pasar "1" *-- "Banyak" Pedagang 
+Blok "1" -- "1" Pedagang
+Klasifikasi "1" *-- "Banyak" Pedagang
+
+class Pasar {
+  +no_pasar
+  +nama_pasar
+  +alamat_pasar
+}
+
+class Blok{
+  +no_blok
+  +nama_blok
+}
+
+class Klasifikasi {
+  +id_klasifikasi
+  +klasifikasi
+}
+
+class Pedagang {
+  +id_pedagang
+  +no_pasar
+  +no_blok
+  +id_klasifikasi
+  +nama_pedagang
+  +jk 
+  +agama
+  +no_hp
+  +ukuran
+  +alamat
+  +jenis_usaha
+  +sertifikat
+  +keterangan
+}
+
+class User{
+  +id_user
+  +username
+  +password
+  +role
+}
+
+
+@enduml
