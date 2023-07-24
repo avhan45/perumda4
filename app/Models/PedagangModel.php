@@ -21,10 +21,9 @@ class PedagangModel extends Model
             ->getResultArray();
     }
 
-    public function getDataPedagang($nama, $no_pasar)
+    public function getDataPedagang($no_pasar, $nama)
     {
-        return $this->db->table('Pedagang')
-            ->where('nama_pedagang', $nama)
+        return $this->where('nama_pedagang', $nama)
             ->where('no_pasar', $no_pasar)
             ->get()
             ->getResultArray();
@@ -36,5 +35,10 @@ class PedagangModel extends Model
             ->join('Pasar', 'Pasar.no_pasar=Pedagang.no_pasar')
             ->get()
             ->getResultArray();
+    }
+
+    public function getJumlahPedagang($no_pasar)
+    {
+        return $this->where('no_pasar', $no_pasar)->countAllResults();
     }
 }

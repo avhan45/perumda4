@@ -58,7 +58,7 @@
                         <!-- small box -->
                         <div class="small-box" style="background-color: <?= $randomColor ?>">
                             <div class=" inner">
-                                <h3 class="text-white"><?= $totalPasar ?></h3>
+                                <h3 class="text-white"><?= $jumlah_pedagang_per_pasar[$ps['no_pasar']] ?? 0; ?></h3>
 
                                 <p class="text-white">Jumlah Pedagang</p>
                             </div>
@@ -127,12 +127,12 @@
 <?= $this->section('script') ?>
 
 <script>
-    const data = <?= json_encode($pasar) ?>; // Fetch the data from PHP to JavaScript
+    let data = <?= json_encode($pasar); ?>; // Fetch the data from PHP to JavaScript
 
+    let jumlahPedagangData = <?= json_encode(array_values($jumlah_pedagang_per_Pasar)); ?>;
 
     // Extract the required data for the chart
     const labels = data.map(pasar => pasar.nama_pasar);
-    const values = data.map(pasar => pasar.no_pasar);
 
     const ctx = document.getElementById('myChart').getContext('2d');
     const myChart = new Chart(ctx, {
@@ -141,7 +141,7 @@
             labels: labels,
             datasets: [{
                 label: 'Jumlah Pedagang',
-                data: values,
+                data: jumlahPedagangData,
                 backgroundColor: [
                     'rgb(255, 99, 132)',
                     'rgb(54, 162, 235)',

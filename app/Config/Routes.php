@@ -57,6 +57,20 @@ $routes->group('pedagang', ['filter' => 'auth'], function ($routes) {
     $routes->get('pasar/(:any)', 'PedagangController::pasar/$1');
     $routes->post('delete/(:any)', 'PedagangController::delete/$1');
 });
+// Blok
+$routes->group('blok', ['filter' => 'auth'], function ($routes) {
+    $routes->get('/', 'BlokController::index');
+    $routes->post('store', 'BlokController::store');
+    $routes->post('update/(:any)', 'BlokController::update/$1');
+    $routes->post('delete/(:any)', 'BlokController::delete/$1');
+});
+// Klasifikasi
+$routes->group('klasifikasi', ['filter' => 'auth'], function ($routes) {
+    $routes->get('/', 'KlasifikasiController::index');
+    $routes->post('store', 'KlasifikasiController::store');
+    $routes->post('update/(:any)', 'KlasifikasiController::update/$1');
+    $routes->post('delete/(:any)', 'KlasifikasiController::delete/$1');
+});
 
 
 

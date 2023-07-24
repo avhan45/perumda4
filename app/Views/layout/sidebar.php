@@ -35,27 +35,43 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-                <li class="nav-item menu-open">
-                    <a href="/" class="nav-link active">
+                <li class="nav-item <?php echo current_url() === base_url('/admin/dashboard') ? 'menu-open' : ''; ?>">
+                    <a href="/" class="nav-link <?php echo current_url() === base_url('/admin/dashboard') ? 'active' : ''; ?>">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Dashboard
                         </p>
                     </a>
                 </li>
-                <li class="nav-item menu-open">
-                    <a href="/pasar" class="nav-link">
+                <li class="nav-item <?php echo current_url() === base_url('/pasar') ? 'menu-open' : ''; ?>">
+                    <a href="/pasar" class="nav-link <?php echo current_url() === base_url('/pasar') ? 'active' : ''; ?>">
                         <i class="nav-icon fas fa-store"></i>
                         <p>
                             Pasar
                         </p>
                     </a>
                 </li>
-                <li class="nav-item menu-open">
-                    <a href="/pedagang" class="nav-link">
+                <li class="nav-item <?php echo current_url() === base_url('/pedagang') ? 'menu-open' : ''; ?>">
+                    <a href="/pedagang" class="nav-link <?php echo current_url() === base_url('/pedagang') ? 'active' : ''; ?>">
                         <i class="nav-icon fas fa-users"></i>
                         <p>
                             Pedagang
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item <?php echo current_url() === base_url('/blok') ? 'menu-open' : ''; ?>">
+                    <a href="/blok" class="nav-link <?php echo current_url() === base_url('/blok') ? 'active' : ''; ?>">
+                        <i class="nav-icon fas fa-thumbtack"></i>
+                        <p>
+                            Blok
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item <?php echo current_url() === base_url('/klasifikasi') ? 'menu-open' : ''; ?>">
+                    <a href="/klasifikasi" class="nav-link <?php echo current_url() === base_url('/klasifikasi') ? 'active' : ''; ?>">
+                        <i class="nav-icon fas fa-filter"></i>
+                        <p>
+                            Klasifikasi
                         </p>
                     </a>
                 </li>

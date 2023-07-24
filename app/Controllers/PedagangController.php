@@ -35,10 +35,9 @@ class PedagangController extends BaseController
     public function store()
     {
         $model = new PedagangModel();
-        $pd = $model->findAll();
-        $nama = $pd[0]['nama_pedagang'];
-        $no_pasar = $pd[0]['no_pasar'];
-        // dd($nama);
+        // $pd = $model->findAll();
+        $no_pasar = $this->request->getPost('nama_pasar');
+        $nama = $this->request->getPost('nama_pedagang');
         $data = [
             'no_pasar' => $this->request->getPost('nama_pasar'),
             'no_blok' => $this->request->getPost('nama_blok'),
@@ -51,7 +50,7 @@ class PedagangController extends BaseController
             'sertifikat' => $this->request->getPost('sertifikat'),
             'keterangan' => $this->request->getPost('keterangan'),
         ];
-        $pedagang = $model->getDataPedagang($nama, $no_pasar);
+        $pedagang = $model->getDataPedagang($no_pasar, $nama);
         if (empty($pedagang)) {
             $simpan = $model->insert($data);
             if (is_numeric($simpan)) {
