@@ -75,6 +75,14 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-item <?php echo current_url() === base_url('pedagang/laporan') ? 'menu-open' : ''; ?>">
+                    <a href="pedagang/laporan" class="nav-link <?php echo current_url() === base_url('pedagang/laporan') ? 'active' : ''; ?>">
+                        <i class="nav-icon fas fa-file"></i>
+                        <p>
+                            Laporan
+                        </p>
+                    </a>
+                </li>
 
 
             </ul>

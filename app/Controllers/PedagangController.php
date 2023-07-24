@@ -7,6 +7,7 @@ use App\Models\BlokModel;
 use App\Models\KlasifikasiModel;
 use App\Models\PasarModel;
 use App\Models\PedagangModel;
+use Dompdf\Dompdf;
 
 class PedagangController extends BaseController
 {
@@ -116,5 +117,21 @@ class PedagangController extends BaseController
         $Message = "Data Berhasil Di Hapus.";
         session()->setFlashdata('success', $Message);
         return redirect()->to('/pedagang')->withInput();
+    }
+
+    public function laporan()
+    {
+        $model = new PedagangModel();
+        $data['content'] = $model->getPedagang();
+        // $data['content'] = 'Isi laporan PDF'; // Ganti dengan konten yang sesuai
+
+        $html = view('pedagang/laporan', $data);
+
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'landscape');
+        $dompdf->render();
+
+        $dompdf->stream('laporan.pdf', ['Attachment' => 0]);
     }
 }

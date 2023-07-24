@@ -53,6 +53,7 @@ $routes->group('pasar', ['filter' => 'auth'], function ($routes) {
 // Pedagang
 $routes->group('pedagang', ['filter' => 'auth'], function ($routes) {
     $routes->get('/', 'PedagangController::index');
+    $routes->get('laporan', 'PedagangController::laporan');
     $routes->post('store', 'PedagangController::store');
     $routes->post('update/(:any)', 'PedagangController::update/$1');
     $routes->get('pasar/(:any)', 'PedagangController::pasar/$1');

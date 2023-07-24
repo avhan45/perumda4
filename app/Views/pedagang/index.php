@@ -28,6 +28,7 @@
                     <div class="card">
                         <div class="card-header d-flex">
                             <h3 class="card-title ">Data Pedagang</h3>
+                            <a href="pedagang/laporan/" class="btn btn-sm btn-default ml-auto"><i class="fas fa-print"></i> Cetak</a>
                             <button class="btn btn-sm btn-primary ml-auto" data-toggle="modal" data-target="#modalTambahPedagang"><i class="fas fa-plus"></i> Tambah Data</button>
                         </div>
                         <div class="card-body">
