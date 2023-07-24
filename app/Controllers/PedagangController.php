@@ -46,6 +46,8 @@ class PedagangController extends BaseController
             'jk' => $this->request->getPost('jk'),
             'agama' => $this->request->getPost('agama'),
             'no_hp' => $this->request->getPost('no_hp'),
+            'ukuran' => $this->request->getPost('ukuran'),
+            'alamat' => $this->request->getPost('alamat'),
             'jenis_usaha' => $this->request->getPost('jenis_usaha'),
             'sertifikat' => $this->request->getPost('sertifikat'),
             'keterangan' => $this->request->getPost('keterangan'),
@@ -64,6 +66,31 @@ class PedagangController extends BaseController
         }
         return redirect()->back();
     }
+    public function update($id)
+    {
+        $model = new PedagangModel();
+        $data = [
+            'no_pasar' => $this->request->getPost('nama_pasar'),
+            'no_blok' => $this->request->getPost('nama_blok'),
+            'id_klasifikasi' => $this->request->getPost('klasifikasi'),
+            'nama_pedagang' => $this->request->getPost('nama_pedagang'),
+            'jk' => $this->request->getPost('jk'),
+            'agama' => $this->request->getPost('agama'),
+            'no_hp' => $this->request->getPost('no_hp'),
+            'ukuran' => $this->request->getPost('ukuran'),
+            'alamat' => $this->request->getPost('alamat'),
+            'jenis_usaha' => $this->request->getPost('jenis_usaha'),
+            'sertifikat' => $this->request->getPost('sertifikat'),
+            'keterangan' => $this->request->getPost('keterangan'),
+        ];
+        $update = $model->update($id, $data);
+        if ($update) {
+            session()->setFlashdata('success', 'Data Berhasil Di Update');
+        } else {
+            session()->setFlashdata('error', 'Data Gagal Di Update');
+        }
+        return redirect()->back();
+    }
 
     public function pasar($no_pasar)
     {
@@ -76,7 +103,7 @@ class PedagangController extends BaseController
             $data['namapasar'] = $data['pedagang'][0]['nama_pasar'];
             return view('pedagang/pasar', $data);
         } else {
-            $errorMessage = "Halaman tidak ditemukan.";
+            $errorMessage = "Tambahkan Data Pedagang Terlebih Dahulu.";
             session()->setFlashdata('error', $errorMessage);
             return redirect()->to('/pasar')->withInput();
         }

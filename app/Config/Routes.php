@@ -54,6 +54,7 @@ $routes->group('pasar', ['filter' => 'auth'], function ($routes) {
 $routes->group('pedagang', ['filter' => 'auth'], function ($routes) {
     $routes->get('/', 'PedagangController::index');
     $routes->post('store', 'PedagangController::store');
+    $routes->post('update/(:any)', 'PedagangController::update/$1');
     $routes->get('pasar/(:any)', 'PedagangController::pasar/$1');
     $routes->post('delete/(:any)', 'PedagangController::delete/$1');
 });
