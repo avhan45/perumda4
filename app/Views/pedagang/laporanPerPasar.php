@@ -76,7 +76,7 @@
                     <td><?= $p['ukuran'] ?></td>
                     <td><?= $p['alamat'] ?></td>
                     <td><?= $p['jenis_usaha'] ?></td>
-                    <td><?= $p['sertifikat'] ?></td>
+                    <td><?= $p['no_sertifikat'] ?></td>
                     <td><?= $p['keterangan'] ?></td>
                 </tr>
             <?php endforeach ?>

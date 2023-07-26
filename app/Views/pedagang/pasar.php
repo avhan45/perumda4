@@ -90,7 +90,11 @@
                                             <td><?= $p['agama'] ?></td>
                                             <td><?= $p['no_hp'] ?></td>
                                             <td><?= $p['jenis_usaha'] ?></td>
-                                            <td><?= $p['sertifikat'] ?></td>
+                                            <td>
+                                                <span class="badge badge-info" id="openSert" data-toggle="modal" data-target="#modalSertifikat<?= $p['id_pedagang'] ?>" style="cursor: pointer;">
+                                                    <?= $p['no_sertifikat'] ?>
+                                                </span>
+                                            </td>
                                             <td><?= $p['keterangan'] ?></td>
                                             <td>
                                                 <div class="input-group-prepend">
@@ -98,7 +102,7 @@
                                                         Aksi
                                                     </button>
                                                     <div class="dropdown-menu">
-                                                        <button class="dropdown-item" data-toggle="modal" data-target="#modalDetailPedagang" data-no_pasar="<?= $p['nama_pasar'] ?>" data-no_blok="<?= $p['nama_blok'] ?>" data-id_klasifikasi="<?= $p['klasifikasi'] ?>" data-nama_pedagang="<?= $p['nama_pedagang'] ?>" data-jk="<?= $p['jk'] ?>" data-agama="<?= $p['agama'] ?>" data-no_hp="<?= $p['no_hp'] ?>" data-ukuran="<?= $p['ukuran'] ?>" data-alamat="<?= $p['alamat'] ?>" data-jenis_usaha="<?= $p['jenis_usaha'] ?>" data-sertifikat="<?= $p['sertifikat'] ?>" data-keterangan="<?= $p['keterangan'] ?>" id="select">Detail</>
+                                                        <button class="dropdown-item" data-toggle="modal" data-target="#modalDetailPedagang" data-no_pasar="<?= $p['nama_pasar'] ?>" data-no_blok="<?= $p['nama_blok'] ?>" data-id_klasifikasi="<?= $p['klasifikasi'] ?>" data-nama_pedagang="<?= $p['nama_pedagang'] ?>" data-jk="<?= $p['jk'] ?>" data-agama="<?= $p['agama'] ?>" data-no_hp="<?= $p['no_hp'] ?>" data-ukuran="<?= $p['ukuran'] ?>" data-alamat="<?= $p['alamat'] ?>" data-jenis_usaha="<?= $p['jenis_usaha'] ?>" data-sertifikat="<?= $p['no_sertifikat'] ?>" data-keterangan="<?= $p['keterangan'] ?>" id="select">Detail</>
                                                             <button class="dropdown-item" data-toggle="modal" data-target="#modalEditPedagang<?= $p['id_pedagang'] ?>">Edit</button>
                                                             <form action="pedagang/delete/<?= $p['id_pedagang'] ?>" method="post">
                                                                 <?= csrf_field() ?>
@@ -120,7 +124,7 @@
                                                         </button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <form action="<?= base_url() ?>/pedagang/update/<?= $p['id_pedagang'] ?>" method="post">
+                                                        <form action="<?= base_url() ?>pedagang/update/<?= $p['id_pedagang'] ?>" method="post" enctype="multipart/form-data">
                                                             <?= csrf_field() ?>
                                                             <div class="row">
                                                                 <div class="col-md-6">
@@ -160,6 +164,16 @@
                                                                         <input type="text" class="form-control" id="nama_pedagang" name="nama_pedagang" value="<?= $p['nama_pedagang'] ?>">
                                                                     </div>
                                                                     <div class="form-group">
+                                                                        <label for="ktp">KTP</label>
+                                                                        <!-- <input type="file" class="form-control" id="ktp" name="ktp"> -->
+                                                                        <div class="input-group">
+                                                                            <div class="custom-file">
+                                                                                <input type="file" class="custom-file-input" id="ktp" name="ktp" value="<?= $p['ktp'] ?>">
+                                                                                <label class="custom-file-label" for="ktp">Upload KTP</label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group">
                                                                         <label for="jk">Jenis Kelamin</label>
                                                                         <select class="form-control" id="jk" name="jk">
                                                                             <option value="<?= $p['jk'] ?>"><?= $p['jk'] ?></option>
@@ -168,17 +182,12 @@
                                                                         </select>
                                                                     </div>
                                                                     <div class="form-group">
-                                                                        <label for="alamat">Alamat</label>
-                                                                        <textarea class="form-control" id="alamat" name="alamat" rows="3"><?= $p['alamat'] ?></textarea>
+                                                                        <label for="agama">Agama</label>
+                                                                        <input type="text" class="form-control" id="agama" name="agama" value="<?= $p['agama'] ?>">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-6">
 
-
-                                                                    <div class="form-group">
-                                                                        <label for="agama">Agama</label>
-                                                                        <input type="text" class="form-control" id="agama" name="agama" value="<?= $p['agama'] ?>">
-                                                                    </div>
                                                                     <div class="form-group">
                                                                         <label for="no_hp">Telepon</label>
                                                                         <input type="text" class="form-control" id="no_hp" name="no_hp" value="<?= $p['no_hp'] ?>">
@@ -187,13 +196,41 @@
                                                                         <label for="jenis_usaha">Jenis Usaha</label>
                                                                         <input type="text" class="form-control" id="jenis_usaha" name="jenis_usaha" value="<?= $p['jenis_usaha'] ?>">
                                                                     </div>
-                                                                    <div class="form-group">
-                                                                        <label for="sertifikat">Sertifikat</label>
-                                                                        <input type="text" class="form-control" id="sertifikat" name="sertifikat" value="<?= $p['sertifikat'] ?>">
+
+                                                                    <div class="row">
+
+                                                                        <div class="col-md-6">
+
+                                                                            <div class="form-group">
+                                                                                <label for="sertifikat">Nomor Sertifikat</label>
+                                                                                <!-- <input type="file" class="form-control" id="sertifikat" name="sertifikat"> -->
+                                                                                <input type="text" class="form-control" id="no_sertifikat" name="no_sertifikat" value="<?= $p['no_sertifikat'] ?>">
+                                                                            </div>
+
+                                                                        </div>
+                                                                        <div class="col-md-6">
+
+                                                                            <div class="form-group">
+                                                                                <label for="sertifikat">Sertifikat</label>
+                                                                                <!-- <input type="file" class="form-control" id="sertifikat" name="sertifikat"> -->
+                                                                                <div class="input-group">
+                                                                                    <div class="custom-file">
+                                                                                        <input type="file" class="custom-file-input" id="sertifikat" name="sertifikat" value="<?= $p['image'] ?>">
+                                                                                        <label class="custom-file-label" for="sertifikat">Upload Sertifikat</label>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>
                                                                     </div>
+
                                                                     <div class="form-group">
                                                                         <label for="ukuran">Ukuran</label>
                                                                         <input type="text" class="form-control" id="ukuran" name="ukuran" value="<?= $p['ukuran'] ?>">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="alamat">Alamat</label>
+                                                                        <textarea class="form-control" id="alamat" name="alamat" rows="3"><?= $p['alamat'] ?></textarea>
                                                                     </div>
 
                                                                     <div class="form-group">
@@ -208,6 +245,76 @@
                                                             </div>
                                                         </form>
                                                     </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Modal Detail Sertifikat -->
+                                        <div class="modal fade" id="modalSertifikat<?= $p['id_pedagang'] ?>">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <!-- Isi modal -->
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="col-md-12">
+
+                                                            <div class="card card-widget widget-user shadow">
+
+                                                                <div class="widget-user-header bg-info">
+                                                                    <h3 class="widget-user-username" id="nama" style="font-weight: 800;"><?= $p['nama_pedagang'] ?></h3>
+                                                                    <!-- <h5 class="widget-user-desc" id="nama">Founder &amp; CEO</h5> -->
+                                                                </div>
+                                                                <div class="widget-user-image">
+                                                                    <a href="<?= base_url() ?>uploads/<?= $p['ktp'] ?>" class="modal-image" target="_blank">
+                                                                        <img class="img-circle elevation-2" src="<?= base_url() ?>uploads/<?= $p['ktp'] ?>" alt="KTP" width="120" height="75">
+                                                                    </a>
+                                                                    <!-- <a target="_blank" href="<?= base_url() ?>uploads/<?= $p['ktp'] ?>">
+                                                                    </a> -->
+                                                                </div>
+                                                                <div class="card-footer">
+                                                                    <div class="row">
+                                                                        <div class="col-sm-4 border-right">
+                                                                            <div class="description-block">
+                                                                                <h5 class="description-header"><?= $p['nama_pasar'] ?></h5>
+                                                                                <span class="description-text">Pasar</span>
+                                                                            </div>
+
+                                                                        </div>
+
+                                                                        <div class="col-sm-4 border-right">
+                                                                            <div class="description-block">
+                                                                                <h5 class="description-header"><?= $p['no_sertifikat'] ?></h5>
+                                                                                <span class="description-text">No. Sertifikat</span>
+                                                                            </div>
+
+                                                                        </div>
+
+                                                                        <div class="col-sm-4">
+                                                                            <div class="description-block">
+                                                                                <h5 class="description-header"><?= $p['jenis_usaha'] ?></h5>
+                                                                                <span class="description-text">Jenis Usaha</span>
+                                                                            </div>
+
+                                                                        </div>
+
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer" style="justify-content: center;">
+                                                        <div class="text-center">
+                                                            <h3 class="text-center" style="font-weight: bold;">SERTIFIKAT</h3>
+                                                        </div>
+                                                        <a class="modal-image" target="_blank" href="<?= base_url() ?>sertifikat/<?= $p['image'] ?>">
+                                                            <img src="<?= base_url() ?>sertifikat/<?= $p['image'] ?>" alt="sertifikat" width="100%" height="200">
+                                                        </a>
+                                                    </div>
+
                                                 </div>
                                             </div>
                                         </div>

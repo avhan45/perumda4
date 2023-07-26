@@ -38,6 +38,14 @@
     <!-- <link rel="stylesheet" href="<?= base_url('asset') ?>/plugins/select2/css/select2.min.css">
     <link rel="stylesheet" href="<?= base_url('asset') ?>/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css"> -->
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+    <!-- Lightbox 2 -->
+    <!-- <link rel="stylesheet" href="<?= base_url('asset') ?>/dist/css/lightbox.css"> -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.css" integrity="sha512-Woz+DqWYJ51bpVk5Fv0yES/edIMXjj3Ynda+KWTIkGoynAMHrqTcDUQltbipuiaD5ymEo9520lyoVOo9jCQOCA==" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+
+
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed ">
@@ -122,6 +130,11 @@
     <!-- Select2 -->
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <!-- <script src="<?= base_url('asset') ?>/plugins/select2/js/select2.full.min.js"></script> -->
+
+    <!-- Lightbox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js" integrity="sha512-Ixzuzfxv1EqafeQlTCufWfaC6ful6WFqIz4G+dWvK0beHw0NVJwvCKSgafpy5gwNqKmgUfIBraVwkKI+Cz0SEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- <script src="<?= base_url('asset') ?>/dist/js/lightbox.min.js"></script> -->
+
     <?php $this->renderSection('script') ?>
 
     <script>

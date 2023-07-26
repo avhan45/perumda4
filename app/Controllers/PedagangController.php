@@ -63,7 +63,7 @@ class PedagangController extends BaseController
         ];
 
         if ($ktp->isValid() && !$ktp->hasMoved('ktp')) {
-            $namaKtp = $ktp->getName();
+            $namaKtp = $ktp->getRandomName();
             // Pindahkan ke Folder upload
             $ktp->move(ROOTPATH . 'public/uploads', $namaKtp, true);
             $data['ktp'] = $namaKtp;
@@ -84,7 +84,7 @@ class PedagangController extends BaseController
             ];
 
             if ($sertifikat->isValid() && !$sertifikat->hasMoved('sertifikat')) {
-                $namaSertifikat = $sertifikat->getName();
+                $namaSertifikat = $sertifikat->getRandomName();
                 $sertifikat->move(ROOTPATH . 'public/sertifikat', $namaSertifikat, true);
                 $sertData['image'] = $namaSertifikat;
             } else {
@@ -105,12 +105,20 @@ class PedagangController extends BaseController
     }
     public function update($id)
     {
+
         $model = new PedagangModel();
+        $modelSertifikat = new SertifikatModel();
+
+        $no_pasar = $this->request->getPost('nama_pasar');
+        $nama = $this->request->getPost('nama_pedagang');
+        $ktp = $this->request->getFile('ktp');
+        $sertifikat = $this->request->getFile('sertifikat');
         $data = [
             'no_pasar' => $this->request->getPost('nama_pasar'),
             'no_blok' => $this->request->getPost('nama_blok'),
             'id_klasifikasi' => $this->request->getPost('klasifikasi'),
             'nama_pedagang' => $this->request->getPost('nama_pedagang'),
+            'ktp' => '',
             'jk' => $this->request->getPost('jk'),
             'agama' => $this->request->getPost('agama'),
             'no_hp' => $this->request->getPost('no_hp'),
@@ -120,12 +128,45 @@ class PedagangController extends BaseController
             'sertifikat' => $this->request->getPost('sertifikat'),
             'keterangan' => $this->request->getPost('keterangan'),
         ];
-        $update = $model->update($id, $data);
-        if ($update) {
-            session()->setFlashdata('success', 'Data Berhasil Di Update');
+        if ($ktp->isValid() && !$ktp->hasMoved('ktp')) {
+            $namaKtp = $ktp->getRandomName();
+            //     // Pindahkan ke Folder Upload
+            $ktp->move(ROOTPATH . 'public/uploads', $namaKtp, true);
+            $data['ktp'] = $namaKtp;
+
+            $pedagang = $model->find($id);
+            if ($pedagang['ktp'] !== 'no-image.jpg') {
+                unlink(ROOTPATH . 'public/uploads/' . $pedagang['ktp']);
+            }
         } else {
-            session()->setFlashdata('error', 'Data Gagal Di Update');
+            $pedagang = $model->find($id);
+            $nmKtp = $pedagang['ktp'];
+            $data['ktp'] = $nmKtp;
         }
+        $model->update($id, $data);
+
+        // Proses update data sertifikat jika ada gambar baru
+        $sertData = [
+            'no_sertifikat' => $this->request->getPost('no_sertifikat'),
+        ];
+
+        if ($sertifikat->isValid() && !$sertifikat->hasMoved('sertifikat')) {
+            $namaSertifikat = $sertifikat->getRandomName();
+            $sertifikat->move(ROOTPATH . 'public/sertifikat', $namaSertifikat, true);
+            $sertData['image'] = $namaSertifikat;
+
+            // Hapus gambar lama dari direktori jika ada
+            $pedagang = $model->find($id);
+            $sertifikatLama = $modelSertifikat->getSertifikat($id);
+            if ($sertifikatLama[0]['image'] !== 'no-image.jpg') {
+                unlink(ROOTPATH . 'public/sertifikat/' . $sertifikatLama[0]['image']);
+            }
+        }
+
+        // Update data sertifikat
+        $modelSertifikat->updateSertifikat($id, $sertData);
+
+        session()->setFlashdata('success', 'Data Berhasil Di Perbarui');
         return redirect()->back();
     }
 
@@ -165,11 +206,32 @@ class PedagangController extends BaseController
     public function delete($id)
     {
         $model = new PedagangModel();
+        $modelSertifikat = new SertifikatModel();
+
+        // Mengambil data pedagang dan sertifikat berdasarkan ID
+        $pedagang = $model->find($id);
+        $sertifikatLama = $modelSertifikat->getSertifikat($id);
+
+
+        // Menghapus file gambar ktp jika ada
+        if ($pedagang['ktp'] !== 'no-image.jpg') {
+            unlink(ROOTPATH . 'public/uploads/' . $pedagang['ktp']);
+        }
+        // Menghapus data pedagang
         $model->delete($id);
-        $Message = "Data Berhasil Di Hapus.";
-        session()->setFlashdata('success', $Message);
-        return redirect()->to('/pedagang')->withInput();
+
+        // Menghapus file gambar sertifikat jika ada
+        if ($sertifikatLama[0]['image'] !== 'no-image.jpg') {
+            unlink(ROOTPATH . 'public/sertifikat/' . $sertifikatLama[0]['image']);
+        }
+
+        // Menghapus data sertifikat
+        $modelSertifikat->deleteSertifikat($id);
+
+        session()->setFlashdata('success', 'Data Berhasil Dihapus');
+        return redirect()->back();
     }
+
 
     public function laporan()
     {
