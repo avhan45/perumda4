@@ -17,6 +17,8 @@ class PedagangModel extends Model
         return $this->db->table('Pedagang')
             ->where('Pedagang.no_pasar', $no_pasar)
             ->join('Pasar', 'Pasar.no_pasar=Pedagang.no_pasar')
+            ->join('Blok', 'Blok.no_blok=Pedagang.no_blok')
+            ->join('Klasifikasi', 'Klasifikasi.id_klasifikasi=Pedagang.id_klasifikasi')
             ->get()
             ->getResultArray();
     }

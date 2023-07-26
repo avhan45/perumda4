@@ -16,6 +16,21 @@
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
+            <div class="row">
+                <div class="col-md-3 col-sm-6 col-12">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-success"><i class="fas fa-users"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Jumlah Pedagang</span>
+                            <span class="info-box-number"><?= $jumlah_pedagang_per_Pasar ?></span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
         </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
@@ -23,6 +38,7 @@
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
+
             <div class="row">
                 <div class="col-12">
                     <div class="card">
@@ -31,7 +47,7 @@
                             <a href="pedagang/laporan/" class="btn btn-sm btn-default ml-auto"><i class="fas fa-print"></i> Cetak</a>
                             <button class="btn btn-sm btn-primary ml-auto" data-toggle="modal" data-target="#modalTambahPedagang"><i class="fas fa-plus"></i> Tambah Data</button>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body table-responsive">
                             <table id="example1" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
@@ -207,7 +223,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="pedagang/store/" method="post">
+                    <form action="pedagang/store/" method="post" enctype="multipart/form-data">
                         <?= csrf_field() ?>
                         <div class="row">
                             <div class="col-md-6">
@@ -244,6 +260,16 @@
                                     <input type="text" class="form-control" id="nama_pedagang" name="nama_pedagang" required>
                                 </div>
                                 <div class="form-group">
+                                    <label for="ktp">KTP</label>
+                                    <!-- <input type="file" class="form-control" id="ktp" name="ktp"> -->
+                                    <div class="input-group">
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="ktp" name="ktp">
+                                            <label class="custom-file-label" for="ktp">Upload KTP</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <label for="jk">Jenis Kelamin</label>
                                     <select class="form-control" id="jk" name="jk" required>
                                         <option value="Laki-laki">Laki-laki</option>
@@ -251,17 +277,14 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="alamat">Alamat</label>
-                                    <textarea class="form-control" id="alamat" name="alamat" rows="3"></textarea>
+                                    <label for="agama">Agama</label>
+                                    <input type="text" class="form-control" id="agama" name="agama">
                                 </div>
                             </div>
                             <div class="col-md-6">
 
 
-                                <div class="form-group">
-                                    <label for="agama">Agama</label>
-                                    <input type="text" class="form-control" id="agama" name="agama">
-                                </div>
+
                                 <div class="form-group">
                                     <label for="no_hp">Telepon</label>
                                     <input type="text" class="form-control" id="no_hp" name="no_hp">
@@ -272,11 +295,21 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="sertifikat">Sertifikat</label>
-                                    <input type="text" class="form-control" id="sertifikat" name="sertifikat">
+                                    <!-- <input type="file" class="form-control" id="sertifikat" name="sertifikat"> -->
+                                    <div class="input-group">
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="sertifikat" name="sertifikat">
+                                            <label class="custom-file-label" for="sertifikat">Upload Sertifikat</label>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="ukuran">Ukuran</label>
                                     <input type="text" class="form-control" id="ukuran" name="ukuran">
+                                </div>
+                                <div class="form-group">
+                                    <label for="alamat">Alamat</label>
+                                    <textarea class="form-control" id="alamat" name="alamat" rows="3"></textarea>
                                 </div>
                                 <div class="form-group">
                                     <label for="keterangan">Keterangan</label>

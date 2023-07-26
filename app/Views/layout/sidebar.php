@@ -14,7 +14,8 @@
                 <img src="<?= base_url('asset') ?>/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block"><?= $username ?></a>
+                <a href="#" class="d-block"><?= strtoupper($username) ?></a>
+                <span class="badge badge-success">Administrator</span>
             </div>
         </div>
 

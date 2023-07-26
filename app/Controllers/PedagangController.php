@@ -30,6 +30,9 @@ class PedagangController extends BaseController
         $data['daftar_blok'] = $blok->findAll();
         $data['daftar_klasifikasi'] = $klasifikasi->findAll();
         $data['username'] = $this->username;
+        $jumlahPedagangPerPasar = $model->countAllResults();
+        $data['jumlah_pedagang_per_Pasar'] = $jumlahPedagangPerPasar;
+        // dd($data['pedagang']);
         return view('pedagang/index', $data);
     }
 
@@ -96,9 +99,25 @@ class PedagangController extends BaseController
     public function pasar($no_pasar)
     {
         $model = new PedagangModel();
+        $modelPasar = new PasarModel();
+        $modelBlok = new BlokModel();
+        $modelKlasifikasi = new KlasifikasiModel();
         // $data['pedagang'] = $model->where('no_pasar', $no_pasar)->findAll();
         $data['pedagang'] = $model->getPasar($no_pasar);
         $data['username'] = $this->username;
+        $data['daftar_pasar'] = $modelPasar->findAll();
+        $data['daftar_blok'] = $modelBlok->findAll();
+        $data['daftar_klasifikasi'] = $modelKlasifikasi->findAll();
+        // $data['pasar'] = $modelPasar->findAll();
+
+        // /Menghitung Jumlah data Pedagang untuk setiap no pasar 
+        $jumlahPedagangPerPasar = $model->where('no_pasar', $no_pasar)->countAllResults();
+        // foreach ($data['pasar'] as $pasar) {
+        //     $no_pasar = $pasar['no_pasar'];
+        //     $jumlahPedagang = $model->where('no_pasar', $no_pasar)->countAllResults();
+        //     $jumlahPedagangPerPasar[$no_pasar] = $jumlahPedagang;
+        // }
+        $data['jumlah_pedagang_per_Pasar'] = $jumlahPedagangPerPasar;
         if (!empty($data['pedagang'])) {
 
             $data['namapasar'] = $data['pedagang'][0]['nama_pasar'];

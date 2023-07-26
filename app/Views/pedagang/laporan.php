@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Laporan PDF</title>
+    <title>Laporan Data Pedagang</title>
     <style>
         .text-center {
             text-align: center;
@@ -46,7 +46,7 @@
 </head>
 
 <body>
-    <h1 class="text-center">Laporan PDF</h1>
+    <h1 class="text-center">Laporan Data Pedagang</h1>
     <table class="table table-bordered">
         <thead>
             <tr>

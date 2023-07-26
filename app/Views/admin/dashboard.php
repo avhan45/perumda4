@@ -65,7 +65,7 @@
                             <div class="icon">
                                 <i class="ion ion-stats-bars"></i>
                             </div>
-                            <a href="#" class="small-box-footer">Pasar <?= $ps['nama_pasar'] ?> <i class="fas fa-arrow-circle-right"></i></a>
+                            <a href="<?= base_url() ?>pedagang/pasar/<?= $ps['no_pasar'] ?>" class="small-box-footer">Pasar <?= $ps['nama_pasar'] ?> <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
                 <?php endforeach; ?>
@@ -77,7 +77,7 @@
             <!-- Main row -->
             <div class="row">
                 <!-- Left col -->
-                <section class="col-lg-7 connectedSortable">
+                <section class="col-md-6 connectedSortable">
                     <!-- Custom tabs (Charts with tabs)-->
                     <div class="card">
                         <div class="card-header">
@@ -102,6 +102,30 @@
                     <!-- /.card -->
                 </section>
                 <!-- /.Left col -->
+                <section class="col-md-6 connectedSortable">
+                    <!-- Custom tabs (Charts with tabs)-->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <i class="fas fa-chart-pie mr-1"></i>
+                                Jumlah Data Pasar
+                            </h3>
+
+                        </div><!-- /.card-header -->
+                        <div class="card-body">
+                            <div class="tab-content p-0">
+                                <!-- Morris chart - Sales -->
+                                <div class="chart tab-pane active" id="chartPasar" style="position: relative;">
+                                    <canvas id="pasarChart" height="200"></canvas>
+                                </div>
+                                <!-- <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 300px;">
+                                    <canvas id="sales-chart-canvas" height="300" style="height: 300px;"></canvas>
+                                </div> -->
+                            </div>
+                        </div><!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </section>
                 <!-- right col (We are only adding the ID to make the widgets sortable)-->
 
                 <!-- right col -->
@@ -119,12 +143,12 @@
 
 <script>
     let data = <?= json_encode($pasar); ?>; // Fetch the data from PHP to JavaScript
-
+    let jml = <?= json_encode($jmlpasar); ?>;
     let jumlahPedagangData = <?= json_encode(array_values($jumlah_pedagang_per_Pasar)); ?>;
 
-    // Extract the required data for the chart
+    // // Extract the required data for the chart
     const labels = data.map(pasar => pasar.nama_pasar);
-
+    // // const jml = data.length;
     const ctx = document.getElementById('myChart').getContext('2d');
     const myChart = new Chart(ctx, {
         type: 'bar',
@@ -147,6 +171,26 @@
                 y: {
                     beginAtZero: true
                 }
+            }
+        }
+    });
+
+    var chart = new Chart(document.getElementById("pasarChart"), {
+        type: "doughnut",
+        data: {
+            labels: labels,
+            datasets: [{
+                label: "Data Pasar",
+                data: jumlahPedagangData
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
             }
         }
     });

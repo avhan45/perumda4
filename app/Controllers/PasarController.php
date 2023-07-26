@@ -23,6 +23,7 @@ class PasarController extends BaseController
     {
         $data['pasar'] = $this->model->findAll();
         $data['username'] = $this->username;
+        $data['jumlah'] = $this->model->countAllResults();
         return view('pasar/index', $data);
     }
 

@@ -12,6 +12,7 @@ class AdminController extends BaseController
     {
         $modelPedagang = new PedagangModel();
         $modelPasar = new PasarModel();
+        $data['jmlpasar'] = $modelPasar->countAllResults();
         $data['username'] = session()->get('username');
         $data['pasar'] = $modelPasar->findAll();
 

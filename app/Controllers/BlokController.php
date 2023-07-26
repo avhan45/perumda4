@@ -12,6 +12,7 @@ class BlokController extends BaseController
         $model = new BlokModel();
         $data['username'] = session()->get('username');
         $data['blok'] = $model->findAll();
+        $data['jumlah'] = $model->countAllResults();
         return view('blok/index', $data);
     }
 
