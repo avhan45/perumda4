@@ -76,7 +76,12 @@
                                             <td><?= $p['agama'] ?></td>
                                             <td><?= $p['no_hp'] ?></td>
                                             <td><?= $p['jenis_usaha'] ?></td>
-                                            <td><?= $p['sertifikat'] ?></td>
+                                            <td>
+                                                <span class="badge badge-info" id="openSert" data-toggle="modal" data-target="#modalSertifikat" data-no_pasar="<?= $p['nama_pasar'] ?>" data-no_blok="<?= $p['nama_blok'] ?>" data-id_klasifikasi="<?= $p['klasifikasi'] ?>" data-nama_pedagang="<?= $p['nama_pedagang'] ?>" data-jk="<?= $p['jk'] ?>" data-agama="<?= $p['agama'] ?>" data-no_hp="<?= $p['no_hp'] ?>" data-ukuran="<?= $p['ukuran'] ?>" data-alamat="<?= $p['alamat'] ?>" data-jenis_usaha="<?= $p['jenis_usaha'] ?>" data-sertifikat="<?= $p['no_sertifikat'] ?>" data-keterangan="<?= $p['keterangan'] ?>" style="cursor: pointer;">
+                                                    <?= $p['no_sertifikat'] ?>
+                                                    </button>
+
+                                            </td>
                                             <td><?= $p['keterangan'] ?></td>
                                             <td>
                                                 <div class="input-group-prepend">
@@ -84,7 +89,7 @@
                                                         Aksi
                                                     </button>
                                                     <div class="dropdown-menu">
-                                                        <button class="dropdown-item" data-toggle="modal" data-target="#modalDetailPedagang" data-no_pasar="<?= $p['nama_pasar'] ?>" data-no_blok="<?= $p['nama_blok'] ?>" data-id_klasifikasi="<?= $p['klasifikasi'] ?>" data-nama_pedagang="<?= $p['nama_pedagang'] ?>" data-jk="<?= $p['jk'] ?>" data-agama="<?= $p['agama'] ?>" data-no_hp="<?= $p['no_hp'] ?>" data-ukuran="<?= $p['ukuran'] ?>" data-alamat="<?= $p['alamat'] ?>" data-jenis_usaha="<?= $p['jenis_usaha'] ?>" data-sertifikat="<?= $p['sertifikat'] ?>" data-keterangan="<?= $p['keterangan'] ?>" id="select">Detail</>
+                                                        <button class="dropdown-item" data-toggle="modal" data-target="#modalDetailPedagang" data-no_pasar="<?= $p['nama_pasar'] ?>" data-no_blok="<?= $p['nama_blok'] ?>" data-id_klasifikasi="<?= $p['klasifikasi'] ?>" data-nama_pedagang="<?= $p['nama_pedagang'] ?>" data-jk="<?= $p['jk'] ?>" data-agama="<?= $p['agama'] ?>" data-no_hp="<?= $p['no_hp'] ?>" data-ukuran="<?= $p['ukuran'] ?>" data-alamat="<?= $p['alamat'] ?>" data-jenis_usaha="<?= $p['jenis_usaha'] ?>" data-sertifikat="<?= $p['no_sertifikat'] ?>" data-keterangan="<?= $p['keterangan'] ?>" id="select">Detail</>
                                                             <button class="dropdown-item" data-toggle="modal" data-target="#modalEditPedagang<?= $p['id_pedagang'] ?>">Edit</button>
                                                             <form action="pedagang/delete/<?= $p['id_pedagang'] ?>" method="post">
                                                                 <?= csrf_field() ?>
@@ -199,6 +204,69 @@
                                             </div>
                                         </div>
 
+                                        <!-- Modal Detail Sertifikat -->
+                                        <div class="modal fade" id="modalSertifikat">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <!-- Isi modal -->
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="col-md-12">
+
+                                                            <div class="card card-widget widget-user shadow">
+
+                                                                <div class="widget-user-header bg-info">
+                                                                    <h3 class="widget-user-username" id="nama" style="font-weight: 800;"></h3>
+                                                                    <!-- <h5 class="widget-user-desc" id="nama">Founder &amp; CEO</h5> -->
+                                                                </div>
+                                                                <div class="widget-user-image">
+                                                                    <img class="img-circle elevation-2" src="<?= base_url(); ?>uploads/<?= $p['ktp'] ?>" alt="Sertifikat">
+                                                                </div>
+                                                                <div class="card-footer">
+                                                                    <div class="row">
+                                                                        <div class="col-sm-4 border-right">
+                                                                            <div class="description-block">
+                                                                                <h5 class="description-header"><?= $p['nama_pasar'] ?></h5>
+                                                                                <span class="description-text">Pasar</span>
+                                                                            </div>
+
+                                                                        </div>
+
+                                                                        <div class="col-sm-4 border-right">
+                                                                            <div class="description-block">
+                                                                                <h5 class="description-header"><?= $p['no_sertifikat'] ?></h5>
+                                                                                <span class="description-text">No. Sertifikat</span>
+                                                                            </div>
+
+                                                                        </div>
+
+                                                                        <div class="col-sm-4">
+                                                                            <div class="description-block">
+                                                                                <h5 class="description-header"><?= $p['jenis_usaha'] ?></h5>
+                                                                                <span class="description-text">Jenis Usaha</span>
+                                                                            </div>
+
+                                                                        </div>
+
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer" style="justify-content: center;">
+                                                        <div class="text-center">
+                                                            <h3 class="text-center" style="font-weight: bold;">SERTIFIKAT</h3>
+                                                        </div>
+                                                        <img src="<?= base_url() ?>sertifikat/<?= $p['image'] ?>" alt="sertifikat" width="100%" height="200">
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
 
                                     <?php endforeach ?>
                                 </tbody>
@@ -293,14 +361,30 @@
                                     <label for="jenis_usaha">Jenis Usaha</label>
                                     <input type="text" class="form-control" id="jenis_usaha" name="jenis_usaha">
                                 </div>
-                                <div class="form-group">
-                                    <label for="sertifikat">Sertifikat</label>
-                                    <!-- <input type="file" class="form-control" id="sertifikat" name="sertifikat"> -->
-                                    <div class="input-group">
-                                        <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="sertifikat" name="sertifikat">
-                                            <label class="custom-file-label" for="sertifikat">Upload Sertifikat</label>
+                                <div class="row">
+
+                                    <div class="col-md-6">
+
+                                        <div class="form-group">
+                                            <label for="sertifikat">Nomor Sertifikat</label>
+                                            <!-- <input type="file" class="form-control" id="sertifikat" name="sertifikat"> -->
+                                            <input type="text" class="form-control" id="no_sertifikat" name="no_sertifikat">
                                         </div>
+
+                                    </div>
+                                    <div class="col-md-6">
+
+                                        <div class="form-group">
+                                            <label for="sertifikat">Sertifikat</label>
+                                            <!-- <input type="file" class="form-control" id="sertifikat" name="sertifikat"> -->
+                                            <div class="input-group">
+                                                <div class="custom-file">
+                                                    <input type="file" class="custom-file-input" id="sertifikat" name="sertifikat">
+                                                    <label class="custom-file-label" for="sertifikat">Upload Sertifikat</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -396,6 +480,8 @@
     </div>
 
 
+
+
 </div>
 
 <?= $this->endSection() ?>
@@ -461,6 +547,12 @@
             // $("modalDetailPedagang").
         });
         $('#myTable th').css('width', '35%');
+        $(document).on('click', '#openSert', function() {
+            $('#modalSertifikat').modal('show')
+            var nama = $(this).data('nama_pedagang');
+
+            $("#nama").text(nama);
+        });
     });
 </script>
 <?= $this->endSection() ?>

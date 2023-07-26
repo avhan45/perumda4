@@ -7,6 +7,7 @@ use App\Models\BlokModel;
 use App\Models\KlasifikasiModel;
 use App\Models\PasarModel;
 use App\Models\PedagangModel;
+use App\Models\SertifikatModel;
 use Dompdf\Dompdf;
 
 class PedagangController extends BaseController
@@ -39,36 +40,68 @@ class PedagangController extends BaseController
     public function store()
     {
         $model = new PedagangModel();
+        $modelSertifikat = new SertifikatModel();
         // $pd = $model->findAll();
         $no_pasar = $this->request->getPost('nama_pasar');
         $nama = $this->request->getPost('nama_pedagang');
+        $ktp = $this->request->getFile('ktp');
+        $sertifikat = $this->request->getFile('sertifikat');
+
         $data = [
             'no_pasar' => $this->request->getPost('nama_pasar'),
             'no_blok' => $this->request->getPost('nama_blok'),
             'id_klasifikasi' => $this->request->getPost('klasifikasi'),
             'nama_pedagang' => $this->request->getPost('nama_pedagang'),
+            'ktp' => '',
             'jk' => $this->request->getPost('jk'),
             'agama' => $this->request->getPost('agama'),
             'no_hp' => $this->request->getPost('no_hp'),
             'ukuran' => $this->request->getPost('ukuran'),
             'alamat' => $this->request->getPost('alamat'),
             'jenis_usaha' => $this->request->getPost('jenis_usaha'),
-            'sertifikat' => $this->request->getPost('sertifikat'),
             'keterangan' => $this->request->getPost('keterangan'),
         ];
+
+        if ($ktp->isValid() && !$ktp->hasMoved('ktp')) {
+            $namaKtp = $ktp->getName();
+            // Pindahkan ke Folder upload
+            $ktp->move(ROOTPATH . 'public/uploads', $namaKtp, true);
+            $data['ktp'] = $namaKtp;
+        } else {
+            $data['ktp'] = 'no-image.jpg';
+        }
+        // $model->insert($data);
+
         $pedagang = $model->getDataPedagang($no_pasar, $nama);
         if (empty($pedagang)) {
-            $simpan = $model->insert($data);
+
+            $pedagangId = $model->insert($data);
+
+            $sertData = [
+                'id_pedagang' => $pedagangId,
+                'no_sertifikat' => $this->request->getPost('no_sertifikat'),
+                'image' => '',
+            ];
+
+            if ($sertifikat->isValid() && !$sertifikat->hasMoved('sertifikat')) {
+                $namaSertifikat = $sertifikat->getName();
+                $sertifikat->move(ROOTPATH . 'public/sertifikat', $namaSertifikat, true);
+                $sertData['image'] = $namaSertifikat;
+            } else {
+                $sertData['image'] = 'no-image.jpg';
+            }
+
+            $simpan = $modelSertifikat->insert($sertData);
             if (is_numeric($simpan)) {
                 session()->setFlashdata('success', 'Data Berhasil Di Simpan');
             } else {
                 session()->setFlashdata('error', 'Data Gagal Di Simpan');
             }
-            // return redirect()->back();
+            return redirect()->back();
         } else {
             session()->setFlashdata('error', 'Data Sudah Ada Dalam Database');
         }
-        return redirect()->back();
+        // return redirect()->back();
     }
     public function update($id)
     {
@@ -158,6 +191,7 @@ class PedagangController extends BaseController
     {
         $model = new PedagangModel();
         $data['content'] = $model->getPasar($no_pasar);
+        $data['pasar'] = $data['content'][0]['nama_pasar'];
         // $data['content'] = 'Isi laporan PDF'; // Ganti dengan konten yang sesuai
 
         $html = view('pedagang/laporanPerPasar', $data);

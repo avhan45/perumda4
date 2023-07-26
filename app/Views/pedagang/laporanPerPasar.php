@@ -46,7 +46,7 @@
 </head>
 
 <body>
-    <h1 class="text-center">Laporan Data Pedagang</h1>
+    <h1 class="text-center">Laporan Data Pedagang - Pasar <?= $pasar ?></h1>
     <table class="table table-bordered">
         <thead>
             <tr>

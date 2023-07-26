@@ -10,13 +10,14 @@ class PedagangModel extends Model
     protected $table            = 'Pedagang';
     protected $primaryKey       = 'id_pedagang';
     protected $useAutoIncrement = true;
-    protected $allowedFields    = ['no_pasar', 'no_blok', 'id_klasifikasi', 'nama_pedagang', 'jk', 'agama', 'no_hp', 'ukuran', 'alamat', 'jenis_usaha', 'sertifikat', 'keterangan'];
+    protected $allowedFields    = ['no_pasar', 'no_blok', 'id_klasifikasi', 'nama_pedagang', 'ktp', 'jk', 'agama', 'no_hp', 'ukuran', 'alamat', 'jenis_usaha', 'sertifikat', 'keterangan'];
 
     public function getPasar($no_pasar)
     {
         return $this->db->table('Pedagang')
             ->where('Pedagang.no_pasar', $no_pasar)
             ->join('Pasar', 'Pasar.no_pasar=Pedagang.no_pasar')
+            ->join('Sertifikat', 'Sertifikat.id_pedagang=Pedagang.id_pedagang')
             ->join('Blok', 'Blok.no_blok=Pedagang.no_blok')
             ->join('Klasifikasi', 'Klasifikasi.id_klasifikasi=Pedagang.id_klasifikasi')
             ->get()
@@ -35,6 +36,7 @@ class PedagangModel extends Model
     {
         return $this->db->table('Pedagang')
             ->join('Pasar', 'Pasar.no_pasar=Pedagang.no_pasar')
+            ->join('Sertifikat', 'Sertifikat.id_pedagang=Pedagang.id_pedagang')
             ->join('Blok', 'Blok.no_blok=Pedagang.no_blok')
             ->join('Klasifikasi', 'Klasifikasi.id_klasifikasi=Pedagang.id_klasifikasi')
             ->get()

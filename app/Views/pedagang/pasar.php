@@ -55,7 +55,7 @@
                         <div class="card-header d-flex">
                             <?php if ($namapasar != null) { ?>
                                 <h3 class="card-title">Data Pedagang - <b>Pasar <?= $namapasar ?></b></h3>
-                                <a href="<?= base_url() ?>pedagang/perpasar/<?= $no_pasar; ?>" class="btn btn-sm btn-default ml-auto"><i class="fas fa-print"></i> Cetak</a>
+                                <a href="<?= base_url() ?>pedagang/perpasar/<?= $no_pasar; ?>" target="_blank" class="btn btn-sm btn-default ml-auto"><i class="fas fa-print"></i> Cetak</a>
                             <?php } else { ?>
                                 <h3 class="card-title">Data Pedagang - <b>Pasar Tidak Di Temukan</b></h3>
                             <?php } ?>
