@@ -108,6 +108,7 @@ class PedagangController extends BaseController
         $data['daftar_pasar'] = $modelPasar->findAll();
         $data['daftar_blok'] = $modelBlok->findAll();
         $data['daftar_klasifikasi'] = $modelKlasifikasi->findAll();
+        $data['no_pasar'] = $no_pasar;
         // $data['pasar'] = $modelPasar->findAll();
 
         // /Menghitung Jumlah data Pedagang untuk setiap no pasar 
@@ -119,7 +120,6 @@ class PedagangController extends BaseController
         // }
         $data['jumlah_pedagang_per_Pasar'] = $jumlahPedagangPerPasar;
         if (!empty($data['pedagang'])) {
-
             $data['namapasar'] = $data['pedagang'][0]['nama_pasar'];
             return view('pedagang/pasar', $data);
         } else {
@@ -145,6 +145,22 @@ class PedagangController extends BaseController
         // $data['content'] = 'Isi laporan PDF'; // Ganti dengan konten yang sesuai
 
         $html = view('pedagang/laporan', $data);
+
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'landscape');
+        $dompdf->render();
+
+        $dompdf->stream('laporan.pdf', ['Attachment' => 0]);
+    }
+
+    public function laporanPerPasar($no_pasar)
+    {
+        $model = new PedagangModel();
+        $data['content'] = $model->getPasar($no_pasar);
+        // $data['content'] = 'Isi laporan PDF'; // Ganti dengan konten yang sesuai
+
+        $html = view('pedagang/laporanPerPasar', $data);
 
         $dompdf = new Dompdf();
         $dompdf->loadHtml($html);

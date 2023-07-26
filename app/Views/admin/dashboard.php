@@ -77,7 +77,7 @@
             <!-- Main row -->
             <div class="row">
                 <!-- Left col -->
-                <section class="col-md-6 connectedSortable">
+                <section class="col-md-8 connectedSortable">
                     <!-- Custom tabs (Charts with tabs)-->
                     <div class="card">
                         <div class="card-header">
@@ -101,31 +101,21 @@
                     </div>
                     <!-- /.card -->
                 </section>
-                <!-- /.Left col -->
-                <section class="col-md-6 connectedSortable">
+                <section class="col-md-4 connectedSortable">
                     <!-- Custom tabs (Charts with tabs)-->
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">
-                                <i class="fas fa-chart-pie mr-1"></i>
-                                Jumlah Data Pasar
-                            </h3>
+                    <div class="info-box mb-3 bg-danger">
+                        <span class="info-box-icon"><i class="fas fa-calculator"></i></span>
 
-                        </div><!-- /.card-header -->
-                        <div class="card-body">
-                            <div class="tab-content p-0">
-                                <!-- Morris chart - Sales -->
-                                <div class="chart tab-pane active" id="chartPasar" style="position: relative;">
-                                    <canvas id="pasarChart" height="200"></canvas>
-                                </div>
-                                <!-- <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 300px;">
-                                    <canvas id="sales-chart-canvas" height="300" style="height: 300px;"></canvas>
-                                </div> -->
-                            </div>
-                        </div><!-- /.card-body -->
+                        <div class="info-box-content">
+                            <span class="info-box-text">Jumlah Pasar</span>
+                            <span class="info-box-number"><?= $jumlah ?></span>
+                        </div>
+                        <!-- /.info-box-content -->
                     </div>
                     <!-- /.card -->
                 </section>
+                <!-- /.Left col -->
+
                 <!-- right col (We are only adding the ID to make the widgets sortable)-->
 
                 <!-- right col -->

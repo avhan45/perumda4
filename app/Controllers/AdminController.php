@@ -15,6 +15,7 @@ class AdminController extends BaseController
         $data['jmlpasar'] = $modelPasar->countAllResults();
         $data['username'] = session()->get('username');
         $data['pasar'] = $modelPasar->findAll();
+        $data['jumlah'] = $modelPasar->countAllResults();
 
         // /Menghitung Jumlah data Pedagang untuk setiap no pasar 
         $jumlahPedagangPerPasar = [];
